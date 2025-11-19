@@ -3,28 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Pomodoro Timer</h1>
-        <div class="timer">
-            <div class="circle">
-                <span id="time">25:00</span>
+        <header>
+            <h1>Pomodoro Timer</h1>
+            <button class="settings-btn" id="settingsBtn" aria-label="Settings">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3"></path>
+                </svg>
+            </button>
+        </header>
+
+        <div class="timer-card">
+            <div class="mode-display" id="modeDisplay">Work Time</div>
+            
+            <div class="timer-display" id="timerDisplay">25:00</div>
+            
+            <div class="progress-ring">
+                <svg width="300" height="300">
+                    <circle cx="150" cy="150" r="140" class="progress-ring-circle-bg"></circle>
+                    <circle cx="150" cy="150" r="140" class="progress-ring-circle" id="progressCircle"></circle>
+                </svg>
             </div>
+
             <div class="controls">
-                <button id="start">Start</button>
-                <button id="pause">Pause</button>
-                <button id="reset">Reset</button>
-                <button id="skip">Skip</button>
+                <button class="control-btn start-btn" id="startBtn" aria-label="Start">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </button>
+                <button class="control-btn pause-btn hidden" id="pauseBtn" aria-label="Pause">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                    </svg>
+                </button>
+                <button class="control-btn reset-btn" id="resetBtn" aria-label="Reset">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                        <path d="M21 3v5h-5"/>
+                    </svg>
+                </button>
             </div>
+
             <div class="session-counter">
-                <p>Session: <span id="session-count">0</span></p>
+                <span class="counter-label">Sessions Completed:</span>
+                <span class="counter-value" id="sessionCounter">0</span>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div class="modal hidden" id="settingsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button class="close-btn" id="closeModal" aria-label="Close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label for="workDuration">Work Duration (minutes)</label>
+                        <input type="number" id="workDuration" min="1" max="60" value="25">
+                    </div>
+                    <div class="setting-group">
+                        <label for="shortBreakDuration">Short Break (minutes)</label>
+                        <input type="number" id="shortBreakDuration" min="1" max="30" value="5">
+                    </div>
+                    <div class="setting-group">
+                        <label for="longBreakDuration">Long Break (minutes)</label>
+                        <input type="number" id="longBreakDuration" min="1" max="60" value="15">
+                    </div>
+                    <div class="setting-group">
+                        <label for="longBreakInterval">Long Break After (sessions)</label>
+                        <input type="number" id="longBreakInterval" min="2" max="10" value="4">
+                    </div>
+                    <div class="setting-group checkbox-group">
+                        <label for="soundEnabled">
+                            <input type="checkbox" id="soundEnabled" checked>
+                            Enable Sound Notifications
+                        </label>
+                    </div>
+                    <div class="setting-group checkbox-group">
+                        <label for="autoStartBreaks">
+                            <input type="checkbox" id="autoStartBreaks">
+                            Auto-start Breaks
+                        </label>
+                    </div>
+                    <div class="setting-group checkbox-group">
+                        <label for="autoStartPomodoros">
+                            <input type="checkbox" id="autoStartPomodoros">
+                            Auto-start Pomodoros
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="save-btn" id="saveSettings">Save Settings</button>
+                </div>
             </div>
         </div>
     </div>
-    <audio id="notification-sound" src="notification.mp3" preload="auto"></audio>
+
     <script src="script.js"></script>
 </body>
 </html>
